@@ -1,0 +1,47 @@
+create database vikash;
+use vikash;
+create table student2(id int not null,name varchar(20));
+insert into student2(id,name) values(5,'Vikash');
+select * from student2;
+
+
+Java code;-
+import java.sql.*;
+public class Connectdb{
+ static final String DB_URL = "jdbc:mysql://localhost:3306/vikash";
+ static final String USER = "root";
+ static final String PASS = "root";
+ public static void main(String[] args)
+ {
+ // Open a connection
+
+ System.out.println("Database Connection Program...");
+ try
+ {
+ Class.forName("com.mysql.cj.jdbc.Driver");
+ Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+ System.out.println("Database Connected Successfully...");
+ Statement stmt = conn.createStatement();
+
+ System.out.println("Inserting records into the table...");
+ String sql = "INSERT INTO Student2 VALUES (25, 'Ravi')";
+ stmt.executeUpdate(sql);
+ System.out.println("Inserted records into the table...");
+ String query = "SELECT * FROM Student2 ";
+ Statement st = conn.createStatement();
+ ResultSet rs = st.executeQuery(query);
+ while (rs.next())
+ {
+ int id = rs.getInt(1);
+ String Name = rs.getString(2);
+
+ System.out.format("%s, %s\n", id, Name);
+ }
+ st.close();
+ }
+ catch (Exception e)
+ {
+ System.err.println("Got an exception! ");
+ System.err.println(e.getMessage());
+ }
+ 
